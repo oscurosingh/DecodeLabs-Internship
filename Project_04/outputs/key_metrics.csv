@@ -1,0 +1,11 @@
+Metric,Value,Format
+Orders,1200,count
+Gross order value,1264761.96,currency
+Average order value,1053.9683,currency
+Cancel + return rate,0.4141666666666667,percentage
+Delivered order rate,0.1925,percentage
+H1 2025 vs H1 2023 gross value,-0.19064007060067256,percentage
+Top product,Chair,text
+Top referral source,Instagram,text
+Lowest referral issue rate,Instagram,text
+Highest coupon AOV,FREESHIP,text
