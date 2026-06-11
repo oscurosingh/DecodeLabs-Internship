@@ -1,117 +1,114 @@
-# 🧹 Project 1: Data Cleaning & Preparation
-**DecodeLabs Industrial Training | Data Analytics Batch 2026**
+# Project 1: Data Cleaning & Preparation
 
----
+**DecodeLabs Data Analytics Industrial Training | Batch 2026**
 
-## 📌 Overview
+## Overview
 
-A complete data cleaning pipeline for a 1,200-record e-commerce transactions dataset.  
-Run **one script** → get **one Excel file** with everything inside.
+This project converts a raw 1,200-row e-commerce workbook into an analysis-ready Pandas DataFrame through a fully documented Jupyter Notebook workflow.
 
----
+The notebook follows the requirements in `DATA ANALYTICS p1.pdf`:
 
-## 🎯 Project Goal
+- identify missing or null values;
+- remove duplicate records when present;
+- correct date, numeric, identifier, and text formats;
+- prove there are zero duplicate order IDs;
+- prove there are zero incorrectly formatted dates.
 
-> Clean a raw dataset by handling missing values, duplicates, and incorrect data.
+All cleaning logic, evidence, outputs, validation checks, and conclusions are contained in `Project1_Data_Cleaning.ipynb`. The workflow does not generate a separate cleaned workbook.
 
-| Requirement | Status |
-|---|---|
-| Identify missing or null values | ✅ |
-| Remove duplicate records | ✅ |
-| Correct data formats (dates, numbers, text) | ✅ |
-| Prepare clean dataset for analysis | ✅ |
+## Dataset
 
----
+| Attribute | Value |
+|---|---:|
+| File | `Dataset_for_Data_Analytics.xlsx` |
+| Records | 1,200 |
+| Columns | 14 |
+| Date range | 2023-01-01 to 2025-06-30 |
+| Unique order IDs | 1,200 |
+| Unique tracking numbers | 1,200 |
 
-## 📁 Folder Structure
+The source contains order, customer, product, pricing, fulfillment, payment, coupon, referral, and shipping fields.
 
+## Data Quality Findings
+
+- `CouponCode` contains 309 blank values, or 25.75% of records.
+- Coupon blanks are a valid business state and are standardized to `NO_COUPON`.
+- All 13 other columns are complete.
+- No full-row duplicates are present.
+- No duplicate `OrderID` values are present.
+- No duplicate `TrackingNumber` values are present.
+- All 1,200 dates parse successfully and fall between January 1, 2023 and June 30, 2025.
+- All quantities, cart sizes, unit prices, and total prices are positive.
+- Every `TotalPrice` matches `Quantity × UnitPrice` within a one-cent tolerance.
+- All order, customer, and tracking identifiers match their expected patterns.
+
+No source records are removed because the duplicate checks find no duplicate rows or order IDs.
+
+## Cleaning Workflow
+
+1. Load the source workbook without modifying it.
+2. Audit shape, schema, missingness, uniqueness, and sample values.
+3. Standardize optional coupon blanks as `NO_COUPON`.
+4. Remove exact and `OrderID` duplicates defensively.
+5. Parse dates as `datetime64[ns]`.
+6. Normalize text whitespace and categorical capitalization.
+7. Normalize identifiers to uppercase.
+8. enforce numeric types and two-decimal monetary precision.
+9. Validate dates, identifiers, positivity, allowed categories, and revenue arithmetic.
+10. Run assertions for the DecodeLabs acceptance gate.
+
+## Mandatory Verification
+
+The executed notebook proves:
+
+```text
+Duplicate OrderID values after cleaning: 0
+Incorrectly formatted dates after cleaning: 0
 ```
+
+It also verifies that all 1,200 source records are retained.
+
+## Repository Structure
+
+```text
 Project_01/
-├── Dataset_for_Data_Analytics.xlsx   ← raw input dataset
-├── data_cleaning.py                  ← run this
-├── requirements.txt                  ← dependencies
-└── Project1_Cleaned.xlsx             ← output (auto-generated)
+├── DATA ANALYTICS p1.pdf
+├── Dataset_for_Data_Analytics.xlsx
+├── Project1_Data_Cleaning.ipynb
+├── README.md
+└── requirements.txt
 ```
 
----
+## How to Run
 
-## ⚙️ How to Run
+1. Open a terminal in `Project_01`.
+2. Install the required packages:
 
-```bash
-# Step 1 — Install dependencies
-pip install -r requirements.txt
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-# Step 2 — Run the script
-python data_cleaning.py
-```
+3. Start Jupyter:
 
-That's it. `Project1_Cleaned.xlsx` will appear in the same folder.
+   ```bash
+   jupyter notebook
+   ```
 
----
+4. Open `Project1_Data_Cleaning.ipynb`.
+5. Select **Run All**.
 
-## 📊 Output — Project1_Cleaned.xlsx
+The notebook resolves the dataset from either the project directory or the repository root, so no path edits are required.
 
-One Excel file with 3 sheets:
+## Technologies
 
-| Sheet | Contents |
-|---|---|
-| **Cleaned Dataset** | All 1,200 rows, fully cleaned and formatted |
-| **Cleaning Report** | Missing values, duplicates, format changes, validation checks, before/after comparison, summary stats, key insights |
-| **Charts** | Missing value heatmap, revenue by product, order status distribution, monthly revenue trend |
+- Python
+- Pandas
+- NumPy
+- Matplotlib
+- Seaborn
+- OpenPyXL
+- Jupyter Notebook
 
----
+## Portfolio Value
 
-## 🔍 What Was Cleaned
-
-### Missing Values
-- `CouponCode` had **309 null values (25.75%)**
-- Filled with `NO_COUPON` — absence of coupon is a valid business state
-- All other 13 columns were fully populated
-
-### Duplicates
-- Full-row duplicates: **0 found**
-- Duplicate OrderIDs: **0 found**
-- DecodeLabs verification gate: **PASSED ✅**
-
-### Format Corrections
-| Field | Before | After |
-|---|---|---|
-| Date | datetime64 / mixed | `YYYY-MM-DD` |
-| Text columns | Mixed / inconsistent case | Title Case |
-| OrderID, CustomerID | Mixed | UPPERCASE |
-| UnitPrice, TotalPrice | Variable decimals | 2 decimal places |
-| Quantity, ItemsInCart | float64 | int64 |
-
----
-
-## 📈 Key Findings
-
-- **Total Revenue:** Rs. 12,64,761.96
-- **Avg Order Value:** Rs. 1,053.97
-- **Top Product:** Chair
-- **Top Referral Channel:** Instagram
-- **⚠️ Cancel + Return Rate: 41.42%** — critical, industry benchmark is 8–12%
-
----
-
-## 🛠️ Tech Stack
-
-| Tool | Use |
-|---|---|
-| Python 3.x | Core language |
-| pandas | Data cleaning & manipulation |
-| numpy | Numerical operations |
-| matplotlib / seaborn | Charts |
-| openpyxl | Excel output |
-
----
-
-## 💼 Resume Bullet Points
-
-- Built an end-to-end Python data cleaning pipeline (Pandas, openpyxl) on a 1,200-record e-commerce dataset, achieving a Data Quality Score of 100/100
-- Implemented strategic missing value imputation, duplicate detection, ISO 8601 date standardization, and 7-rule business validation — all outputs consolidated into a single Excel workbook
-- Identified a critical 41.42% cancellation + return rate through post-cleaning EDA, surfacing an actionable business insight for stakeholder review
-
----
-
-*DecodeLabs Industrial Training | Data Analytics | Batch 2026*
+This project demonstrates reproducible data profiling, semantic missing-value treatment, defensive deduplication, type normalization, business-rule validation, audit reporting, and assertion-based quality control. It treats cleaning as an evidence-driven process rather than claiming corrections that the raw dataset did not require.
