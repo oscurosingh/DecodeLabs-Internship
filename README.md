@@ -33,7 +33,9 @@ DecodeLabs-Internship
 │   └── README.md
 │
 ├── Project_03
-│   ├── Project3_SQL_Data_Analysis.ipynb
+│   ├── Data Analytics Project 3.ipynb
+│   ├── Dataset_for_Data_Analytics.xlsx
+│   ├── requirements.txt
 │   └── README.md
 │
 └── Project_04

@@ -1,0 +1,18 @@
+# ─────────────────────────────────────────────────────────────
+# SQL Business Intelligence Analysis — Project 3
+# DecodeLabs Data Analytics Industrial Training | Batch 2026
+# ─────────────────────────────────────────────────────────────
+
+# Core data manipulation
+pandas>=2.0.0
+
+# Excel file reading (.xlsx support)
+openpyxl>=3.1.0
+
+# Jupyter environment
+notebook>=7.0.0
+ipykernel>=6.0.0
+
+# ─────────────────────────────────────────────────────────────
+# NOTE: sqlite3 is part of Python's standard library — no install needed.
+# ─────────────────────────────────────────────────────────────
